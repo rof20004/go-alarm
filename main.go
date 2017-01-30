@@ -20,7 +20,7 @@ func main() {
 
 	// Check length of arguments passed to process
 	if len(os.Args) != 3 {
-		log.Fatalln("Arguments mismatch, needs two arguments [time] [days-foward], type 0 to days-foward for today")
+		log.Fatalln("Arguments mismatch, needs two arguments [time->HH:MM] [days-foward->N], type 0 to days-foward for today")
 	}
 
 	// Get hours and minutes, separated by :
@@ -32,6 +32,10 @@ func main() {
 	// Check hours formatt
 	if len(alarmTime) != 5 {
 		log.Fatalln("Invalid time. Correct formatt: 13:01")
+	}
+
+	if days <= 0 {
+		log.Fatalln("Invalid days. Days need to be greater than ZERO")
 	}
 
 	// Split hours into two elements array
