@@ -34,8 +34,8 @@ func main() {
 		log.Fatalln("Invalid time. Correct formatt: 13:01")
 	}
 
-	if days <= 0 {
-		log.Fatalln("Invalid days. Days need to be greater than ZERO")
+	if days < 0 {
+		log.Fatalln("Invalid days. Days need to be greater or equal ZERO")
 	}
 
 	// Split hours into two elements array
