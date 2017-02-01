@@ -20,7 +20,7 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	defer file.Close()
+	file.Close()
 
 	var days int
 	var hours int
@@ -35,11 +35,11 @@ func main() {
 	// Get hours and minutes, separated by :
 	alarmTime = os.Args[1]
 
-	// Get days
+	// Get days and convert to int
 	days, _ = strconv.Atoi(os.Args[2])
 
 	// Check hours formatt
-	if len(alarmTime) != 5 {
+	if len(alarmTime) != 5 || strings.Index(alarmTime, ":") != 2 {
 		log.Fatalln("Invalid time. Correct formatt: 13:01")
 	}
 
