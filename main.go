@@ -12,6 +12,15 @@ import (
 )
 
 func main() {
+	// Alarm file name
+	var fileName = "alarm.mp3"
+
+	// Check if alarm file sound exists
+	file, err := os.Open(fileName)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer file.Close()
 
 	var days int
 	var hours int
@@ -76,9 +85,9 @@ func main() {
 	// Verify if Operation System is windows or linux
 	switch runtime.GOOS {
 	case "windows":
-		playOnWindows("alarm.mp3")
+		playOnWindows(fileName)
 	case "linux":
-		playOnLinux("alarm.mp3")
+		playOnLinux(fileName)
 	default:
 		fmt.Println("O.S not supported")
 	}
@@ -87,14 +96,6 @@ func main() {
 
 // Play sound using mpg123 package
 func playOnLinux(fileName string) {
-
-	// Check if alarm file sound exists
-	file, err := os.Open(fileName)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer file.Close()
-
 	// Check if mpg123 package can be used
 	cmd := exec.Command("mpg123", fileName)
 	if err := cmd.Run(); err != nil {
@@ -103,19 +104,10 @@ func playOnLinux(fileName string) {
 
 	// Call recursively
 	playOnLinux(fileName)
-
 }
 
 // Play sound using cmdmp3 package
 func playOnWindows(fileName string) {
-
-	// Check if alarm file sound exists
-	file, err := os.Open(fileName)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer file.Close()
-
 	// Check if mpg123 package can be used
 	cmd := exec.Command("cmdmp3", fileName)
 	if err := cmd.Run(); err != nil {
@@ -124,5 +116,4 @@ func playOnWindows(fileName string) {
 
 	// Call recursively
 	playOnWindows(fileName)
-
 }
